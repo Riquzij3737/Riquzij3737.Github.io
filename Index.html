@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
     <title>CaçaBolinha</title>
 
     <!--Area onde contem os estilos, usado para definir classes que definirão a aparencia dos elementos-->
@@ -13,12 +14,26 @@
             text-align: center;
             font-size: 60px;
             font-family: 'Courier New', Courier, monospace;
+            margin-bottom: -50px;
         }
 
         .pontos {
             text-align: center;
             font-size: 45px;
             font-family: 'Courier New', Courier, monospace;
+            margin-bottom: -5px;
+        }
+        
+        .Relogio
+        {
+            color: greenyellow;
+            border: 3px solid black;
+            text-align: center;
+            margin: auto;
+            height: 30px;
+            width: 60px;
+            font-size: xx-large;
+            font-family: digital-7;
         }
 
         /*div onde ficara o botão*/
@@ -32,7 +47,6 @@
             text-align: center;
             margin: auto;
             overflow: hidden;
-
         }
 
         /*botão*/
@@ -44,7 +58,7 @@
             height: 60px;
             /*tamanho da bolinha*/
             width: 60px;
-            animation: colors 2s linear infinite;
+            animation: colors 5s linear infinite;
             /*animação de fundo colorido baseado em keyframes*/
             color: white;
             top: 300px;
@@ -52,7 +66,7 @@
             left: 0px;
             cursor: pointer;
             /*neg que altera o cursor do mouse pra outro bagulho que n sei o nome*/
-            transition: all 2s;
+            transition: all 2000ms;
 
             box-shadow: 5px 3px rgb(0, 0, 0, 0.5);
             /*sombrinha bonitinha*/
@@ -62,6 +76,8 @@
             height: 70px;
             width: 70px;
         }
+
+        
 
         @keyframes colors {
             0% {
@@ -76,12 +92,24 @@
                 background-color: green;
             }
 
-            75% {
+            60% {
                 background-color: blue;
             }
 
-            100% {
+            70% {
                 background-color: blueviolet;
+            }
+
+            80% {
+                background-color: pink;
+            }
+
+            90% {
+                background-color: white;
+            }
+
+            100% {
+                background-color: rgb(255, 0, 0);
             }
 
         }
@@ -91,6 +119,8 @@
 <body>
     <h1 class="Titulo"> caça bolinha</h1>
     <h2 class="pontos" id="pontos-js">pontos: 0</h2>
+    <p class="Relogio" id="Relogio-js">30</p>
+    
     <div class="area-de-caca" id="area-de-caca-js">
         <button class="bolinha" id="Bolinha-js" onclick="clicked()">Bolinha</button>
         <script>
@@ -133,7 +163,7 @@
                         setTimeout(() => {
                             alert("a tua sorte q euu sou bom zinho e trouxe a bolinha pra ti");
                             bolinha.hidden = false;
-                        }, 5000);
+                        }, 2000);
 
 
                     default:
