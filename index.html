@@ -10,10 +10,10 @@
 
     <!--Area onde contem os estilos, usado para definir classes que definirão a aparencia dos elementos-->
     <style>
-@font-face {
-    font-family: digital-7;    
-    src: url("recurses/digital-7.ttf");
-}
+        @font-face {
+            font-family: digital-7;
+            src: url("recurses/digital-7.ttf");
+        }
 
         .Titulo {
             text-align: center;
@@ -28,18 +28,17 @@
             font-family: 'Courier New', Courier, monospace;
             margin-bottom: -5px;
         }
-        
-        .Relogio
-        {
+
+        .Relogio {
             color: greenyellow;
             border: 3px solid black;
             text-align: center;
-            margin: 20px 300px;
+            margin: 20px 685px;
             height: 65px;
             width: 125px;
             font-size: 70px;
-            font-family: digital-7;            
-            border-radius: 30px ;
+            font-family: digital-7;
+            border-radius: 30px;
             bottom: 90px;
         }
 
@@ -54,6 +53,7 @@
             text-align: center;
             margin: auto;
             overflow: hidden;
+            background-color: rgb(128, 128, 128, 0.50);
         }
 
         /*botão*/
@@ -79,12 +79,28 @@
             /*sombrinha bonitinha*/
         }
 
-        .bolinha:hover {
-            height: 70px;
-            width: 70px;
+        .Derrota {
+            color: red;
+            font-style: normal;
+            position: relative;
+            font-weight: bold;
+            text-align: center;
+            font-size: 150px;
+            margin: auto;
+            top: 100px;
+            background-color: black;
         }
 
-        
+        .Começar {
+            background-color: green;
+            border: 2px solid black;
+            border-radius: 90px;
+            color: white;
+            height: 80px;
+            width: 200px;
+            position: relative;
+            top: 100px;
+        }
 
         @keyframes colors {
             0% {
@@ -126,31 +142,49 @@
 <body>
     <h1 class="Titulo"> caça bolinha</h1>
     <h2 class="pontos" id="pontos-js">pontos: 0</h2>
-    <p class="Relogio" id="Relogio-js">30</p>
-    
+    <p class="Relogio" id="Relogio-js"></p>
+
     <div class="area-de-caca" id="area-de-caca-js">
-        <button class="Começar" id="Começar-js"> Começar </button>
-        <button class="bolinha" id="Bolinha-js">Bolinha</button>
+        <p class="Derrota" id="Derrota-js">VOCÊ PERDEU</p>
+        <button class="Começar" id="Começar-js" onclick="start()"> Começar </button>
+        <button class="bolinha" id="Bolinha-js" onclick="clickedball()">Bolinha</button>
         <script>
             // variavel pontos
             let pontos = 0;
+            let timer = 30;
+            let intervalo = null;
 
             let bolinha = document.getElementById("Bolinha-js");
             let relogio = document.getElementById("Relogio-js");
             let pontos_texto = document.getElementById("pontos-js");
             let ComeçarButton = document.getElementById("Começar-js");
+            let AreaDeCaça = document.getElementById("area-de-caca-js");
+            let Derrota = document.getElementById("Derrota-js");
 
+            Derrota.hidden = true;
+
+            relogio.innerText = timer;
             bolinha.hidden = true;
-            
-            
-            
 
-            bolinha.addEventListener("mouseenter", MouseEnter())
+            function start() {
+                ComeçarButton.hidden = true;
+                bolinha.hidden = false;
+                AreaDeCaça.style.background = "white";
+
+                relogio.innerText = timer;
+                intervalo = setInterval(updatetimer, 1000); // inicia o cronômetro
+            }
 
             function clickedball() {
                 pontos++;
 
                 bolinha.innerText = "bosta, você me pegou"
+                bolinha.addEventListener("mouseover", () => {
+                    bolinha.style.width = "70px";
+                    bolinha.style.height = "70px";
+
+                    MouseEnter();
+                });
 
                 let left = getRandomInt(0, 540);
                 let top = getRandomInt(0, 540);
@@ -161,10 +195,9 @@
 
             }
 
-            function MouseEnter()
-            {
-                 bolinha.style.top = getRandomInt(0, 540) + "px";
-                 bolinha.style.left = getRandomInt(0, 540) + "px";
+            function MouseEnter() {
+                bolinha.style.top = getRandomInt(0, 540) + "px";
+                bolinha.style.left = getRandomInt(0, 540) + "px";
 
                 switch (getRandomInt(0, 5)) {
                     case 0:
@@ -200,7 +233,36 @@
                     default:
                         break;
                 }
+
             }
+
+            function updatetimer() {
+                timer--;
+
+                if (timer <= 0) {
+                    relogio.innerText = 0;
+                    relogio.style.color = "black";
+                    clearInterval(intervalo); // para o cronômetro
+
+                    bolinha.hidden = true;
+                    Derrota.hidden = false;
+                    ComeçarButton.hidden = false;
+                    ComeçarButton.innerText = "Tentar de Novo";
+                    ComeçarButton.onclick = () => location.reload(); // recarrega a página
+                    return;
+                }
+
+                if (timer <= 5) {
+                    relogio.style.color = "brown";
+                } else if (timer <= 15) {
+                    relogio.style.color = "red";
+                } else if (timer <= 25) {
+                    relogio.style.color = "yellow";
+                }
+
+                relogio.innerText = timer;
+            }
+
 
             function getRandomInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
