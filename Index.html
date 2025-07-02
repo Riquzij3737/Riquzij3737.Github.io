@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--Html principal-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaçaBolinha</title>
+
+    <!--Area onde contem os estilos, usado para definir classes que definirão a aparencia dos elementos-->
+    <style>
+        .Titulo {
+            text-align: center;
+            font-size: 60px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .pontos {
+            text-align: center;
+            font-size: 45px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /*div onde ficara o botão*/
+        .area-de-caca {
+            display: block;
+            position: relative;
+            border: 2px solid black;
+            border-radius: 20px;
+            height: 600px;
+            width: 600px;
+            text-align: center;
+            margin: auto;
+            overflow: hidden;
+
+        }
+
+        /*botão*/
+        .bolinha {
+            border-radius: 100px;
+            /*arredonda as bordas do botão*/
+            position: absolute;
+            /*define a posição da bolinha como absolute, ou seja, ela vai oder se mover, porem nos limites da div em que está*/
+            height: 60px;
+            /*tamanho da bolinha*/
+            width: 60px;
+            animation: colors 2s linear infinite;
+            /*animação de fundo colorido baseado em keyframes*/
+            color: white;
+            top: 300px;
+            /*posição inicial*/
+            left: 0px;
+            cursor: pointer;
+            /*neg que altera o cursor do mouse pra outro bagulho que n sei o nome*/
+            transition: all 2s;
+
+            box-shadow: 5px 3px rgb(0, 0, 0, 0.5);
+            /*sombrinha bonitinha*/
+        }
+
+        .bolinha:hover {
+            height: 70px;
+            width: 70px;
+        }
+
+        @keyframes colors {
+            0% {
+                background-color: red;
+            }
+
+            25% {
+                background-color: yellow;
+            }
+
+            50% {
+                background-color: green;
+            }
+
+            75% {
+                background-color: blue;
+            }
+
+            100% {
+                background-color: blueviolet;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="Titulo"> caça bolinha</h1>
+    <h2 class="pontos" id="pontos-js">pontos: 0</h2>
+    <div class="area-de-caca" id="area-de-caca-js">
+        <button class="bolinha" id="Bolinha-js" onclick="clicked()">Bolinha</button>
+        <script>
+            // variavel pontos
+            let pontos = 0;
+
+            let bolinha = document.getElementById("Bolinha-js");
+            let pontos_texto = document.getElementById("pontos-js");
+
+            // evento de mouse
+            bolinha.addEventListener("mouseenter", x => {
+                bolinha.style.top = getRandomInt(0, 540) + "px";
+                bolinha.style.left = getRandomInt(0, 540) + "px";
+
+                switch (getRandomInt(0, 5)) {
+                    case 0:
+                        bolinha.innerText = "Você n me pega hahahahahahaha";
+                        break;
+
+                    case 1:
+                        bolinha.innerText = "otario kakakakaka";
+                        break;
+
+                    case 2:
+                        bolinha.innerText = "burro kakakakkakaka";
+                        break;
+
+                    case 3:
+                        bolinha.innerText = "olha eu fugindo kakakaka";
+                        break;
+
+                    case 4:
+                        bolinha.innerText = "sumi, voltei, seu merda kakakakaka"
+                        break;
+
+                    case 5:
+                        alert("você é um bosta, a bolinha fugiu");
+                        bolinha.hidden = true
+                        bolinha.innerText = "fugi do navegador e se nem me viu, trouxa kkkkkkkkkkkkkkkkk"
+                        setTimeout(() => {
+                            alert("a tua sorte q euu sou bom zinho e trouxe a bolinha pra ti");
+                            bolinha.hidden = false;
+                        }, 5000);
+
+
+                    default:
+                        break;
+                }
+            })
+
+            function clicked() {
+                pontos++;
+
+                bolinha.innerText = "bosta, você me pegou"
+
+                let left = getRandomInt(0, 540);
+                let top = getRandomInt(0, 540);
+
+                pontos_texto.innerText = "pontos: " + pontos;
+                bolinha.style.top = top + "px";
+                bolinha.style.left = left + "px";
+
+            }
+
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        </script>
+    </div>
+</body>
+
+</html>
