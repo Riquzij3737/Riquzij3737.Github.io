@@ -10,6 +10,11 @@
 
     <!--Area onde contem os estilos, usado para definir classes que definirão a aparencia dos elementos-->
     <style>
+@font-face {
+    font-family: digital-7;    
+    src: url("recurses/digital-7.ttf");
+}
+
         .Titulo {
             text-align: center;
             font-size: 60px;
@@ -29,11 +34,13 @@
             color: greenyellow;
             border: 3px solid black;
             text-align: center;
-            margin: auto;
-            height: 30px;
-            width: 60px;
-            font-size: xx-large;
-            font-family: digital-7;
+            margin: 20px 300px;
+            height: 65px;
+            width: 125px;
+            font-size: 70px;
+            font-family: digital-7;            
+            border-radius: 30px ;
+            bottom: 90px;
         }
 
         /*div onde ficara o botão*/
@@ -122,18 +129,42 @@
     <p class="Relogio" id="Relogio-js">30</p>
     
     <div class="area-de-caca" id="area-de-caca-js">
-        <button class="bolinha" id="Bolinha-js" onclick="clicked()">Bolinha</button>
+        <button class="Começar" id="Começar-js"> Começar </button>
+        <button class="bolinha" id="Bolinha-js">Bolinha</button>
         <script>
             // variavel pontos
             let pontos = 0;
 
             let bolinha = document.getElementById("Bolinha-js");
+            let relogio = document.getElementById("Relogio-js");
             let pontos_texto = document.getElementById("pontos-js");
+            let ComeçarButton = document.getElementById("Começar-js");
 
-            // evento de mouse
-            bolinha.addEventListener("mouseenter", x => {
-                bolinha.style.top = getRandomInt(0, 540) + "px";
-                bolinha.style.left = getRandomInt(0, 540) + "px";
+            bolinha.hidden = true;
+            
+            
+            
+
+            bolinha.addEventListener("mouseenter", MouseEnter())
+
+            function clickedball() {
+                pontos++;
+
+                bolinha.innerText = "bosta, você me pegou"
+
+                let left = getRandomInt(0, 540);
+                let top = getRandomInt(0, 540);
+
+                pontos_texto.innerText = "pontos: " + pontos;
+                bolinha.style.top = top + "px";
+                bolinha.style.left = left + "px";
+
+            }
+
+            function MouseEnter()
+            {
+                 bolinha.style.top = getRandomInt(0, 540) + "px";
+                 bolinha.style.left = getRandomInt(0, 540) + "px";
 
                 switch (getRandomInt(0, 5)) {
                     case 0:
@@ -169,20 +200,6 @@
                     default:
                         break;
                 }
-            })
-
-            function clicked() {
-                pontos++;
-
-                bolinha.innerText = "bosta, você me pegou"
-
-                let left = getRandomInt(0, 540);
-                let top = getRandomInt(0, 540);
-
-                pontos_texto.innerText = "pontos: " + pontos;
-                bolinha.style.top = top + "px";
-                bolinha.style.left = left + "px";
-
             }
 
             function getRandomInt(min, max) {
